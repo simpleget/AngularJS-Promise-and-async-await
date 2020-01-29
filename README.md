@@ -1,7 +1,5 @@
-Promise與Async/Await，如何等待所有異步函數結束才執行後續代碼
-=
-Promise and Async/Await practice (Angular 7): How to call async/await functions in series/parallel
-=
+## Promise與Async/Await，如何等待所有異步函數結束才執行後續代碼
+### Promise and Async/Await practice (Angular 7): How to call async/await functions in series/parallel
 ## 前言：<br>
 因目前公司所寫的Angular專案遇到一個狀況：所有Component、Service與Interceptor執行前，先取得一個JSON檔案，內容是關於站台使用的設定檔(Configuration)。<br>
 開發平台除了localhost之外，還有兩台不同的主機，假設為domainA.com/domainB.com。<br>
@@ -29,10 +27,25 @@ this.http.get('/_files/config.json').subscribe();
 ### 放屁
 接著遇到異步的問題。<br>
 <br>
-假設變數A依賴於設定檔，在設定檔取得之前，A就被呼叫了，後面的代碼整個都錯，系統就壞了。
+假設變數A依賴於設定檔，在設定檔取得之前，A就被呼叫了，後面的代碼抓不到東西整個都錯，系統就壞了。
 ### 3. 使用Session Storage
 此方法就不多說了，說是當作另一個備份的地方，但結果是第一次進來Session Storage也是空的時候，那問題一樣沒解決。
 ## 進入正題
+以前在寫Native JS都是寫一大堆`CallBack`做到同步的效果，大部分都把層數都保持在兩層，所以覺得還好，後來接這個專案想到的是使用Promise與Async/Await做到這件事，而且需求是不只一個異步函數。
+##### 假如有兩個異步函數，這兩個跑完才能跑接下來的代碼。
+```javascript
+  private foo1() {
+    const data = this.httpClient.get(this.apiUrl).toPromise();
+    console.log("Data1: done get promise");
+    return data;
+  }
 
+  private foo2() {
+    const data = this.httpClient.get(this.apiUrl).toPromise();
+    console.log("Data2: done get promise");
+    return data;
+  }
+```
 
+To be continue...<br>
 [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-parallel-practice)
