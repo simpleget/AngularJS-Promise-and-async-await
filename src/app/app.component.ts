@@ -16,15 +16,12 @@ export class AppComponent implements OnInit {
   apiUrl = "https://www.techiediaries.com/api/data.json";
 
   constructor(private httpClient: HttpClient) {
-    this.inParallel().then(
-      ()=> {console.log('### all Done')}
-    );
+    this.inParallel().then(() => {
+      console.log("### all Done");
+    });
   }
 
-  ngOnInit() {
-    // this.fetchData();
-    // this.fetchData2();
-  }
+  ngOnInit() {}
 
   private fetchData() {
     const data = this.httpClient.get(this.apiUrl).toPromise();
