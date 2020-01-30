@@ -177,11 +177,11 @@ this.http.get('/_files/config.json').subscribe();
 這兩個函數執行結束後，最後才會印出
 
     ### parallel DONE ### 15:8.719
-假設有其他函數必須等待`foo1``foo2`後才執行，就可以這樣寫
+假設有其他函數必須等待`foo1` `foo2`後才執行，就可以這樣寫
 ```javascript
   this.parallel().then(() => {
     console.log("### parallel DONE ###", this.getExecTime());
     this.foo3(); // other function
   });
 ```
-這樣就可以指定哪些異步函數執行結束後，在執行指定函數囉
+這樣就可以指定哪些異步函數執行結束後，再執行指定函數囉
