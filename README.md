@@ -28,7 +28,7 @@ this.http.get('/_files/config.json').subscribe();
 ```
 後來看同事A使用`HttpClient`相對路徑去GET，讓每台主機相對於自己的Domain去GET設定檔<br>
 這樣就不會有問題吧！？
-### 放屁
+### 並沒有
 接著遇到異步的問題。<br>
 <br>
 假設變數A依賴於設定檔，在設定檔取得之前，A就被呼叫了，後面的代碼抓不到東西整個都錯，系統就壞了。
