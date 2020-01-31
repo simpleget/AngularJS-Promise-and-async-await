@@ -16,9 +16,9 @@ export class AppComponent {
   apiUrl = "https://www.techiediaries.com/api/data.json";
 
   constructor(private httpClient: HttpClient) {
-  this.parallel().then(() => {
-    console.log("### parallel DONE ###", this.getExecTime());
-  });
+    this.parallel().then(() => {
+      console.log("### parallel DONE ###", this.getExecTime());
+    });
   }
 
   getExecTime() {
@@ -31,7 +31,7 @@ export class AppComponent {
     );
   }
 
-    private foo1() {
+  private foo1() {
     console.log("### in foo1 ###", this.getExecTime());
     return new Promise(resolve => {
       this.httpClient
@@ -61,7 +61,7 @@ export class AppComponent {
     });
   }
 
- async parallel() {
+  async parallel() {
     const promise1 = this.foo1();
     const promise2 = this.foo2();
     await promise1;
