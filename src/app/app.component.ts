@@ -11,53 +11,61 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   name = "Angular";
   apiUrl = "https://www.techiediaries.com/api/data.json";
 
   constructor(private httpClient: HttpClient) {
-    this.inParallel().then(() => {
-      console.log("### all Done");
+  this.parallel().then(() => {
+    console.log("### parallel DONE ###", this.getExecTime());
+  });
+  }
+
+  getExecTime() {
+    return (
+      new Date().getMinutes() +
+      ":" +
+      new Date().getSeconds() +
+      "." +
+      new Date().getMilliseconds()
+    );
+  }
+
+    private foo1() {
+    console.log("### in foo1 ###", this.getExecTime());
+    return new Promise(resolve => {
+      this.httpClient
+        .get(this.apiUrl)
+        .toPromise()
+        .then(d => {
+          setTimeout(() => {
+            console.log("### httpClient get foo1 done", this.getExecTime());
+            resolve();
+          }, 5000); // 5 sec
+        });
     });
   }
 
-  ngOnInit() {}
-
-  private fetchData() {
-    const data = this.httpClient.get(this.apiUrl).toPromise();
-    console.log("Data1: done get promise");
-    return data;
-  }
-
-  private fetchData2() {
-    const data = this.httpClient.get(this.apiUrl).toPromise();
-    console.log("Data2: done get promise");
-    return data;
-  }
-
-  async inParallel() {
-    const promise1 = this.fetchData();
-    const promise2 = this.fetchData2();
-    console.log(await promise1);
-    console.log(await promise2);
-    return new Promise(r => setTimeout(r, 0));
-  }
-
-  printNumber1() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log("Number1 is done");
-        resolve(10);
-      }, 1000);
+  private foo2() {
+    console.log("### in foo2 ###", this.getExecTime());
+    return new Promise(resolve => {
+      this.httpClient
+        .get(this.apiUrl)
+        .toPromise()
+        .then(d => {
+          setTimeout(() => {
+            console.log("### httpClient get foo2 done", this.getExecTime());
+            resolve();
+          }, 1000); // 1 sec
+        });
     });
   }
 
-  printNumber2() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log("Number2 is done");
-        resolve(20);
-      }, 5000);
-    });
+ async parallel() {
+    const promise1 = this.foo1();
+    const promise2 = this.foo2();
+    await promise1;
+    await promise2;
+    return new Promise(r => r());
   }
 }
