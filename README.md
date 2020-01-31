@@ -185,3 +185,7 @@ this.http.get('/_files/config.json').subscribe();
   });
 ```
 這樣就可以指定哪些異步函數執行結束後，再執行指定函數囉
+
+###### 參考資料
+1. [https://stackoverflow.com/questions/35612428/call-async-await-functions-in-parallel](https://stackoverflow.com/questions/35612428/call-async-await-functions-in-parallel)
+2. [https://developers.google.com/web/fundamentals/primers/async-functions?hl=zh-tw](https://developers.google.com/web/fundamentals/primers/async-functions?hl=zh-tw)
